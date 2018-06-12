@@ -1,0 +1,10 @@
+Tanggal
+TID
+MID
+Store code
+Auth code / APPRCODE
+RRN / Ref no
+Prepaid card Num
+Amount
+
+status 
