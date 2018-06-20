@@ -34,5 +34,53 @@ namespace ReconciliationTool.Properties {
                 this["EXCELOLEDB"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.202.102")]
+        public string DBServer {
+            get {
+                return ((string)(this["DBServer"]));
+            }
+            set {
+                this["DBServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DbWDGatewayIDM")]
+        public string DBCatalog {
+            get {
+                return ((string)(this["DBCatalog"]));
+            }
+            set {
+                this["DBCatalog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
+        public string DBUsername {
+            get {
+                return ((string)(this["DBUsername"]));
+            }
+            set {
+                this["DBUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pvs1909~")]
+        public string DBPassword {
+            get {
+                return ((string)(this["DBPassword"]));
+            }
+            set {
+                this["DBPassword"] = value;
+            }
+        }
     }
 }

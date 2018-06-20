@@ -5,5 +5,17 @@
     <Setting Name="EXCELOLEDB" Type="System.String" Scope="User">
       <Value Profile="(Default)">Microsoft.ACE.OLEDB.12.0</Value>
     </Setting>
+    <Setting Name="DBServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.202.102</Value>
+    </Setting>
+    <Setting Name="DBCatalog" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DbWDGatewayIDM</Value>
+    </Setting>
+    <Setting Name="DBUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="DBPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pvs1909~</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -21,6 +21,7 @@ namespace ReconciliationTool
     {
         
         private frmAbout frmAbout = new frmAbout();
+        private frmDBConfig frmDBConfig = new frmDBConfig();
 
         public frmMain()
         {
@@ -30,7 +31,9 @@ namespace ReconciliationTool
         private void frmMain_Load(object sender, EventArgs e)
         {
             rtLoadForm();
+            toolStripStatusLabel1.Text = "Ready";
         }
+
 
         public void rtLoadForm()
         {
@@ -90,6 +93,7 @@ namespace ReconciliationTool
             OpenFileDialog file = new OpenFileDialog(); //open dialog to choose file  
             if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK) //if there is a file choosen by the user  
             {
+                toolStripStatusLabel1.Text = "Reading File";
                 filePath = file.FileName; //get the path of the file  
                 textBox1.Text = filePath;
                 fileExt = Path.GetExtension(filePath); //get the file extension  
@@ -104,6 +108,7 @@ namespace ReconciliationTool
                         int numRows = dataGridView1.Rows.Count;
 
                         label_total.Text = "Total : " + numRows.ToString();
+                        toolStripStatusLabel1.Text = "Uploaded " + numRows + " row(s)";
 
                     }
                     catch (Exception ex)
@@ -115,6 +120,7 @@ namespace ReconciliationTool
                 {
                     MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error); //custom messageBox to show error  
                 }
+                
             }
         }
 
@@ -125,6 +131,7 @@ namespace ReconciliationTool
 
         private void vdFillTermList()
         {
+            toolStripStatusLabel1.Text = "Processing. Please wait..";
             int totalfound = 0;
             int totalnotfound = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
@@ -157,7 +164,13 @@ namespace ReconciliationTool
                 {
                     try
                     {
-                        conn.ConnectionString = "Data Source=192.168.202.102;Initial Catalog=DbWDGatewayIDM;User ID=sa;Password=pvs1909~";
+                        String DBServer = Properties.ReconciliationTool.Default["DBServer"].ToString();
+                        String DBCatalog = Properties.ReconciliationTool.Default["DBCatalog"].ToString();
+                        String DBUsername = Properties.ReconciliationTool.Default["DBUsername"].ToString();
+                        String DBPassword = Properties.ReconciliationTool.Default["DBPassword"].ToString();
+
+                        
+                        conn.ConnectionString = "Data Source=" + DBServer + ";Initial Catalog=" + DBCatalog + ";User ID=" + DBUsername + ";Password=" + DBPassword;
                         conn.Open();
 
                         using (SqlCommand command = new SqlCommand("spVIDM_SearchRecon", conn))
@@ -190,8 +203,9 @@ namespace ReconciliationTool
                                 Console.WriteLine("FTRX_TS\tFTID\t\tFMID\t\tFSTORECODE\t\tFAPPRCODE\t\tFRRN\t\tFPREPAIDCARDNUM\t\tFCARDNUM\t\tFAMOUNT\t\tFSTATUS");
                                 while (reader.Read())
                                 {
-                                    Console.WriteLine(String.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}\t | {8}\t | {9}",
-                                        reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9]));
+                                    String statusLine = String.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}\t | {8}\t | {9}",
+                                        reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9]);
+                                    Console.WriteLine(statusLine);
                                 }
 
                                 // if the result set is not NULL
@@ -226,7 +240,7 @@ namespace ReconciliationTool
                     finally
                     {
                         conn.Close();
-                        
+                        toolStripStatusLabel1.Text = "Done";
                      }
                 }
             }
@@ -313,6 +327,16 @@ namespace ReconciliationTool
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAbout.ShowDialog();
+        }
+
+        private void configToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDBConfig.ShowDialog();
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
