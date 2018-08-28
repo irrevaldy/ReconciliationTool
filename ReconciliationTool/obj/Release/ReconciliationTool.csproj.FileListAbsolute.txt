@@ -2,7 +2,6 @@ D:\ReconciliationTool\ReconciliationTool\bin\Release\ReconciliationTool.exe.conf
 D:\ReconciliationTool\ReconciliationTool\bin\Release\ReconciliationTool.exe
 D:\ReconciliationTool\ReconciliationTool\bin\Release\ReconciliationTool.pdb
 D:\ReconciliationTool\ReconciliationTool\bin\Release\AesLib.dll
-D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.csprojResolveAssemblyReference.cache
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.frmAbout.resources
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.frmDBConfig.resources
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.frmMain.resources
@@ -10,3 +9,8 @@ D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.Properti
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.csproj.GenerateResource.Cache
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.exe
 D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.pdb
+D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.csprojResolveAssemblyReference.cache
+D:\ReconciliationTool\ReconciliationTool\bin\Release\ReconciliationTool.exe.manifest
+D:\ReconciliationTool\ReconciliationTool\bin\Release\ReconciliationTool.application
+D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.exe.manifest
+D:\ReconciliationTool\ReconciliationTool\obj\Release\ReconciliationTool.application

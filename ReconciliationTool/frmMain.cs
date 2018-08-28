@@ -32,6 +32,7 @@ namespace ReconciliationTool
         {
             rtLoadForm();
             toolStripStatusLabel1.Text = "Ready";
+            this.WindowState = FormWindowState.Maximized;
         }
 
 
@@ -84,6 +85,11 @@ namespace ReconciliationTool
 
         private void button1_Click(object sender, EventArgs e)
         {
+            textBox1.Text = "";
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+           
             label_total.Text = "Total : 0";
             label_found.Text = "Found : 0";
             label_not_found.Text = "Not Found : 0";
@@ -118,7 +124,9 @@ namespace ReconciliationTool
                 }
                 else
                 {
+                    toolStripStatusLabel1.Text = "Wrong file type";
                     MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error); //custom messageBox to show error  
+                    toolStripStatusLabel1.Text = "Ready";
                 }
                 
             }
@@ -126,27 +134,31 @@ namespace ReconciliationTool
 
         private void button2_Click(object sender, EventArgs e)
         {
+            toolStripStatusLabel1.Text = "Processing. Please wait..";
             vdFillTermList();
+            toolStripStatusLabel1.Text = "Done";
         }
 
         private void vdFillTermList()
         {
-            toolStripStatusLabel1.Text = "Processing. Please wait..";
+            
             int totalfound = 0;
             int totalnotfound = 0;
+            int row = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                string FTRX_TS = r.Cells[0].Value.ToString();
-                string FTID = r.Cells[1].Value.ToString();
-                string FMID = r.Cells[2].Value.ToString();
-                string FSTORECODE = r.Cells[3].Value.ToString();
-                string FAPPRCODE = r.Cells[4].Value.ToString();
-                string FRRN = r.Cells[5].Value.ToString();
+               
+                string FTRX_TS = r.Cells[0].Value.ToString().Trim();
+                string FTID = r.Cells[1].Value.ToString().Trim();
+                string FMID = r.Cells[2].Value.ToString().Trim();
+                string FSTORECODE = r.Cells[3].Value.ToString().Trim();
+                string FAPPRCODE = r.Cells[4].Value.ToString().Trim();
+                string FRRN = r.Cells[5].Value.ToString().Trim();
                 string FPREPAIDCARDNUM = r.Cells[6].Value.ToString();
-                string FCARDNUM = r.Cells[7].Value.ToString();
-                string FSTATUS = r.Cells[8].Value.ToString();
-                string FAMOUNT = r.Cells[9].Value.ToString();
-                string FFOUND = r.Cells[10].Value.ToString();
+                string FCARDNUM = r.Cells[7].Value.ToString().Trim();
+                string FSTATUS = r.Cells[8].Value.ToString().Trim();
+                string FAMOUNT = r.Cells[9].Value.ToString().Trim();
+                string FFOUND = r.Cells[10].Value.ToString().Trim();
                 
               
                 /*string FGATEWAY_TS = "20180606143229";
@@ -169,12 +181,12 @@ namespace ReconciliationTool
                         String DBUsername = Properties.ReconciliationTool.Default["DBUsername"].ToString();
                         String DBPassword = Properties.ReconciliationTool.Default["DBPassword"].ToString();
 
-                        
                         conn.ConnectionString = "Data Source=" + DBServer + ";Initial Catalog=" + DBCatalog + ";User ID=" + DBUsername + ";Password=" + DBPassword;
                         conn.Open();
 
                         using (SqlCommand command = new SqlCommand("spVIDM_SearchRecon", conn))
                         {
+                            row++;
                             command.CommandType = CommandType.StoredProcedure;
                             SqlParameter paramFTRX_TS = new SqlParameter("@FTRX_TS", SqlDbType.VarChar, 50) { Value = FTRX_TS };
                             SqlParameter paramFTID = new SqlParameter("@FTID", SqlDbType.VarChar, 50) { Value = FTID };
@@ -186,6 +198,22 @@ namespace ReconciliationTool
                             SqlParameter paramFCARDNUM = new SqlParameter("@FCARDNUM", SqlDbType.VarChar, 50) { Value = FCARDNUM };
                             SqlParameter paramFAMOUNT = new SqlParameter("@FAMOUNT", SqlDbType.VarChar, 50) { Value = FAMOUNT };
                             SqlParameter paramFSTATUS = new SqlParameter("@FSTATUS", SqlDbType.VarChar, 50) { Value = FSTATUS };
+
+                            //Log
+                          
+                            //Console.WriteLine("Excel row: " + row + ". " + FTRX_TS + "|" + FTID + "|" + FMID + "|" + FSTORECODE + "|" + FAPPRCODE + "|" + FRRN + "|" + FPREPAIDCARDNUM + "|" + FCARDNUM + "|" + FAMOUNT + "|" + FSTATUS);
+
+                            StringBuilder sb = new StringBuilder();
+                            sb.Append("Excel row: " + row + ". " + FTRX_TS + "|" + FTID + "|" + FMID + "|" + FSTORECODE + "|" + FAPPRCODE + "|" + FRRN + "|" + FPREPAIDCARDNUM + "|" + FCARDNUM + "|" + FAMOUNT + "|" + FSTATUS);
+                            sb.Append(Environment.NewLine);
+
+                            // flush every 20 seconds as you do it
+                            string folderName = @"C://ReconciliationTool";
+                            string pathString = System.IO.Path.Combine(folderName, "Log");
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                            File.AppendAllText(pathString + "/log.txt", sb.ToString());
+                            sb.Clear();
 
                             command.Parameters.Add(paramFTRX_TS);
                             command.Parameters.Add(paramFTID);
@@ -200,16 +228,19 @@ namespace ReconciliationTool
 
                             using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                Console.WriteLine("FTRX_TS\tFTID\t\tFMID\t\tFSTORECODE\t\tFAPPRCODE\t\tFRRN\t\tFPREPAIDCARDNUM\t\tFCARDNUM\t\tFAMOUNT\t\tFSTATUS");
+                                String statusLine = "";
+                                //Console.WriteLine("FTRX_TS\tFTID\t\tFMID\t\tFSTORECODE\t\tFAPPRCODE\t\tFRRN\t\tFPREPAIDCARDNUM\t\tFCARDNUM\t\tFAMOUNT\t\tFSTATUS");
                                 while (reader.Read())
                                 {
-                                    String statusLine = String.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}\t | {8}\t | {9}",
+                                    statusLine = String.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}\t | {8}\t | {9}",
                                         reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9]);
-                                    Console.WriteLine(statusLine);
-                                }
+                                    //Console.WriteLine("Result from sp: " + statusLine);
 
+               
+                                }
                                 // if the result set is not NULL
-                                if (reader.HasRows)
+                                if(reader.HasRows && statusLine != "")
+                                //if (statusLine != "")
                                 {
                                     r.DefaultCellStyle.BackColor = Color.SpringGreen;
                                     r.Cells[10].Value = "FOUND";
@@ -235,14 +266,19 @@ namespace ReconciliationTool
                             {
                                 r.DefaultCellStyle.BackColor = Color.Green;
                             }*/
+                            
                         }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                     finally
                     {
                         conn.Close();
-                        toolStripStatusLabel1.Text = "Done";
-                     }
+                    }
                 }
+                
             }
             //this.label_found.Text = "Found : " + totalfound.ToString();
             //this.label_not_found.Text = "Not Found : " + totalnotfound.ToString();
@@ -250,6 +286,7 @@ namespace ReconciliationTool
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
             /*
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel files (*.xlsx)|*.xlsx|Excel Documents (*.xls)|*.xls";
@@ -259,15 +296,16 @@ namespace ReconciliationTool
                 //ToCsV(dataGridView1, @"c:\export.xls");
                 ToCsV(dataGridView1, sfd.FileName); // Here dataGridview1 is your grid view name
             }*/
-
+            toolStripStatusLabel1.Text = "Exporting..";
             Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
             Excel._Worksheet worksheet = null;
             app.Visible = false;
             worksheet = workbook.Sheets["Sheet1"];
+            worksheet.Columns["G"].NumberFormat = "0";
             worksheet = workbook.ActiveSheet;
             worksheet.Name = "Records";
-
+            
             try
             {
                 for (int i = 0; i < dataGridView1.Columns.Count; i++)
@@ -280,7 +318,8 @@ namespace ReconciliationTool
                     {
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
                         {
-                            worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            worksheet.Cells[i + 2, j + 1] = "\t" + dataGridView1.Rows[i].Cells[j].Value.ToString();
+
                         }
                         else
                         {
@@ -311,6 +350,7 @@ namespace ReconciliationTool
                 workbook = null;
                 worksheet = null;
                 app.Visible = true;
+                toolStripStatusLabel1.Text = "Done";
             }
         }
 

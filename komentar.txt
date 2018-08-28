@@ -1,0 +1,5 @@
+note
+
+1. status bar
+2. penjagaan untuk data yang tidak sesuai dengan format excel yang diperlukan pada saat upload
+3. card number di db tidak diproteksi, query sbaiknya diperbaiki untuk menangani data db yang tidak diproteksi

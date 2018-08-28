@@ -31,6 +31,7 @@ namespace ReconciliationTool
 
                 Properties.ReconciliationTool.Default.Save();
                 lblSaveResult.Text = "Save configuration OK";
+                MessageBox.Show("Configuration Changed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
