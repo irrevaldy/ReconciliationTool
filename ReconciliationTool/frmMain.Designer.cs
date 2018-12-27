@@ -175,7 +175,6 @@ namespace ReconciliationTool
             this.label_total.Size = new System.Drawing.Size(46, 13);
             this.label_total.TabIndex = 11;
             this.label_total.Text = "Total : 0";
-            this.label_total.Click += new System.EventHandler(this.label3_Click);
             // 
             // label_found
             // 
@@ -210,7 +209,7 @@ namespace ReconciliationTool
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel1.Text = "Status";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            
             // 
             // frmMain
             // 

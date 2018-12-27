@@ -29,16 +29,9 @@ namespace ReconciliationTool
         }
 
         private void frmMain_Load(object sender, EventArgs e)
-        {
-            rtLoadForm();
+        {  
             toolStripStatusLabel1.Text = "Ready";
             this.WindowState = FormWindowState.Maximized;
-        }
-
-
-        public void rtLoadForm()
-        {
-
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -229,20 +222,53 @@ namespace ReconciliationTool
                             using (SqlDataReader reader = command.ExecuteReader())
                             {
                                 String statusLine = "";
+                                /*String timestampTr = "";
+                                String tidTr = "";
+                                String midTr = "";
+                                String storeTr = "";
+                                String apprcodeTr = "";
+                                String rrnTr = "";
+                                String prepaidcardTr = "";
+                                String cardTr = "";*/
+                                String statusTr = "";
+                                /*String amountTr = "";*/
+                                
                                 //Console.WriteLine("FTRX_TS\tFTID\t\tFMID\t\tFSTORECODE\t\tFAPPRCODE\t\tFRRN\t\tFPREPAIDCARDNUM\t\tFCARDNUM\t\tFAMOUNT\t\tFSTATUS");
                                 while (reader.Read())
                                 {
+                                    
                                     statusLine = String.Format("{0} \t | {1} \t | {2} \t | {3} \t | {4} \t | {5} \t | {6} \t | {7}\t | {8}\t | {9}",
                                         reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7], reader[8], reader[9]);
                                     //Console.WriteLine("Result from sp: " + statusLine);
 
-               
+                                    /*timestampTr = String.Format("{0}", reader[0]);
+                                    tidTr = String.Format("{0}", reader[1]);
+                                    midTr = String.Format("{0}", reader[2]);
+                                    storeTr = String.Format("{0}", reader[3]);
+                                    apprcodeTr = String.Format("{0}", reader[4]);
+                                    rrnTr = String.Format("{0}", reader[5]);
+                                    prepaidcardTr = String.Format("{0}", reader[6]);
+                                    cardTr = String.Format("{0}", reader[7]);*/
+                                    statusTr = String.Format("{0}", reader[8]);
+                                    /*amountTr = String.Format("{0}", reader[9]);*/
+                                       
                                 }
+
                                 // if the result set is not NULL
-                                if(reader.HasRows && statusLine != "")
+                                if (statusLine != "")
                                 //if (statusLine != "")
                                 {
                                     r.DefaultCellStyle.BackColor = Color.SpringGreen;
+                                   /* r.Cells[0].Value = timestampTr;
+                                    r.Cells[1].Value = tidTr;
+                                    r.Cells[2].Value = midTr;
+                                    r.Cells[3].Value = storeTr;
+                                    r.Cells[4].Value = apprcodeTr;
+                                    r.Cells[5].Value = rrnTr;
+                                    r.Cells[6].Value = prepaidcardTr;
+                                    r.Cells[7].Value = cardTr;*/
+                                    r.Cells[8].Value = statusTr;
+                                    /*r.Cells[9].Value = amountTr;*/
                                     r.Cells[10].Value = "FOUND";
                                     totalfound++;
                                     this.label_found.Text = "Found : " + totalfound.ToString();
@@ -250,10 +276,12 @@ namespace ReconciliationTool
                                 else
                                 {
                                     r.DefaultCellStyle.BackColor = Color.Yellow;
+                                    //r.Cells[8].Value = "FOUND";
                                     r.Cells[10].Value = "NOT FOUND";
                                     totalnotfound++;
                                     this.label_not_found.Text = "Not Found : " + totalnotfound.ToString();
-                                }
+                                }          
+                                
                             }
 
                             /*object nullableValue = command.ExecuteScalar();
@@ -354,16 +382,6 @@ namespace ReconciliationTool
             }
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAbout.ShowDialog();
@@ -372,11 +390,6 @@ namespace ReconciliationTool
         private void configToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDBConfig.ShowDialog();
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

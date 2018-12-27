@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReconciliationTool.exe" size="54776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReconciliationTool.exe" size="56824">
       <assemblyIdentity name="ReconciliationTool" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>eALr9ejM6dSznwR9oAHx7b6sJTq4a2HmYry7S14cXB8=</dsig:DigestValue>
+        <dsig:DigestValue>idF6e9rN90g0s0uCHMCEcLReUKHNIXFVgnab4mva4uM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

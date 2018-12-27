@@ -64,8 +64,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Version v0.0.5";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Text = "Version v1.0.1";
             // 
             // label3
             // 
@@ -98,7 +97,6 @@
             this.Name = "frmAbout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
-            this.Load += new System.EventHandler(this.frmAbout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
