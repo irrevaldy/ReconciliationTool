@@ -4,7 +4,7 @@
   <description asmv2:publisher="ReconciliationTool" asmv2:product="ReconciliationTool" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
     <dependentAssembly dependencyType="install" codebase="ReconciliationTool.exe.manifest" size="4126">
@@ -14,7 +14,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UKZ0uiAt3j/b8FUWneXAT7p1rPnwUvXt2/v5h25S570=</dsig:DigestValue>
+        <dsig:DigestValue>wPQ4q0K6PB9rCUVKp1kXdmzfRqyMOZkhCEAWSbYQVs0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
